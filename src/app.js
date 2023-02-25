@@ -44,7 +44,6 @@ io.on("connection", (socket)=> {
   })
   socket.on("addItem", info => {
     let addProduct = info;
-    console.log(addProduct)
     products[0].push(info)
   })
 })
