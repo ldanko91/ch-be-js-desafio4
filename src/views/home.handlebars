@@ -2,10 +2,13 @@
 
 {{#each productos}}
 <div>
-    <h3>{{this.title}}</h3>
-    <h4>ID: {{this.id}}</h4>
-    <h4>{{this.description}}</h4>
+    <h4>{{this.title}}</h4>
+    <img src="{{this.thumbnail}}">
+    <p>ID: {{this.id}}</p>
+    <p>Código: {{this.code}}</p>
+    <p>{{this.description}}</p>
+    <p>Categoría: {{this.category}}</p>
     <p>Stock disponible: {{this.stock}} unidades</p>
-    <h3>Precio: ${{this.price}}</h3>
+    <h4>Precio: ${{this.price}}</h4>
 </div>
 {{/each}}

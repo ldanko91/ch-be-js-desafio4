@@ -8,14 +8,14 @@ import { engine } from "express-handlebars";
 import * as path from 'path';
 import { Server } from "socket.io";
 import productManager from "./controllers/ProductManager.js";
-const products = []
+// const products = []
 
-let importProds =  async (req,res)=> {
-    let productsFetch = await productManager.getProducts()
-    products.push(productsFetch)
-}
+// let importProds =  async (req,res)=> {
+//     let productsFetch = await productManager.getProducts()
+//     products.push(productsFetch)
+// }
 
-importProds();
+// importProds();
 
 
 const app = express();
@@ -36,20 +36,20 @@ const io = new Server(server);
 
 io.on("connection", (socket)=> {
   console.log("cliente conectado")
+  // importProds()
 
-  
   socket.on("delItem", info => {
-    let indexDel = products[0].findIndex(prod => prod.id == info);
-    products[0].splice(indexDel, 1)
+    productManager.deleteProductById(info)
+    // importProds()
   })
+
   socket.on("addItem", info => {
-    let addProduct = info;
-    products[0].push(info)
+    productManager.addProduct(info)
+    // importProds()
   })
+
 })
 
-
-// app.use("/static", express.static(__dirname + "/public"));
 
 app.use("/", express.static(__dirname + "/public"));
 
@@ -58,4 +58,4 @@ app.use("/api/products", routerProduct);
 app.use("/api/carts", routerCart);
 app.use("/realtimeproducts", realTimeProducts);
 
-export default products
+// export default products
