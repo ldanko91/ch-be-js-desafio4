@@ -8,14 +8,6 @@ import { engine } from "express-handlebars";
 import * as path from 'path';
 import { Server } from "socket.io";
 import productManager from "./controllers/ProductManager.js";
-// const products = []
-
-// let importProds =  async (req,res)=> {
-//     let productsFetch = await productManager.getProducts()
-//     products.push(productsFetch)
-// }
-
-// importProds();
 
 
 const app = express();
@@ -34,20 +26,21 @@ app.set('views', path.resolve(__dirname, './views'))
 
 const io = new Server(server);
 
-io.on("connection", (socket)=> {
+io.on("connection", async (socket)=> {
   console.log("cliente conectado")
-  // importProds()
 
-  socket.on("delItem", info => {
-    productManager.deleteProductById(info)
-    // importProds()
-  })
+  socket.on("addItem", async info => {
+    socket.emit("mssgAddProd", await productManager.addProduct(info, []))
+    socket.emit("getProds", await productManager.getProducts())
+    })
 
-  socket.on("addItem", info => {
-    productManager.addProduct(info)
-    // importProds()
-  })
-
+  socket.on("delItem", async id => {
+    socket.emit("mssgDelProd", productManager.deleteProductById(parseInt(id)))
+    socket.emit("getProds", await productManager.getProducts())
+    })
+  
+    socket.emit("getProds", await productManager.getProducts());
+    
 })
 
 
@@ -57,5 +50,3 @@ app.use("/", homeHbs);
 app.use("/api/products", routerProduct);
 app.use("/api/carts", routerCart);
 app.use("/realtimeproducts", realTimeProducts);
-
-// export default products

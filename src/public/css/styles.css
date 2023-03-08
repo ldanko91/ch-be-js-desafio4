@@ -6,16 +6,34 @@ body {
         grid-template-columns: 1fr 1fr 1fr;
     }
     
+img {
+    height: 100px;
+    width: 60px;
+}
+
+.logo-navbar {
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+}
+
+.navbar-basic {
+    display: flex;
+    flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    
     nav {
-        display: flex;
-        justify-content: center;
+        display: inline-flex;
+        justify-content: space-between;
         grid-column-start: 1;
         grid-column-end: 4;
     }
     
     footer {
-        display: flex;
-        justify-content: center;
+    display: inline-flex;
+        flex-direction: row;
+        justify-content: flex-start;
         grid-column-start: 1;
         grid-column-end: 4;
     }
@@ -31,7 +49,7 @@ body {
 }
 
 div {
-    display: flex;
+display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
