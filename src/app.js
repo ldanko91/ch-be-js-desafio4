@@ -35,11 +35,11 @@ io.on("connection", async (socket)=> {
     })
 
   socket.on("delItem", async id => {
-    socket.emit("mssgDelProd", productManager.deleteProductById(parseInt(id)))
+    socket.emit("mssgDelProd", await productManager.deleteProductById(parseInt(id)))
     socket.emit("getProds", await productManager.getProducts())
     })
   
-    socket.emit("getProds", await productManager.getProducts());
+  socket.emit("getProds", await productManager.getProducts());
     
 })
 

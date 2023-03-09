@@ -25,15 +25,15 @@
 </form>
 
 {{#each products}}
-<div>
-    <h4>{{this.title}}</h4>
-    <img src="{{[this.thumbnail]}}">
+<div id="prodsRender">
+    {{!-- <h4>{{this.title}}</h4>
+    <img src="{{this.thumbnail}}">
     <p>ID: {{this.id}}</p>
     <p>Código: {{this.code}}</p>
     <p>{{this.description}}</p>
     <p>Categoría: {{this.category}}</p>
     <p>Stock disponible: {{this.stock}} unidades</p>
-    <h4>Precio: ${{this.price}}</h4>
+    <h4>Precio: ${{this.price}}</h4> --}}
 
 </div>
 {{/each}}

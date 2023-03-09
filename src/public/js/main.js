@@ -3,8 +3,6 @@ const socket = io()
 const delID = document.getElementById("delID")
 const delSubmit = document.getElementById("delSubmit")
 
-// socket.on("refresh", product.push(info))
-
 delSubmit.addEventListener("click", (e)=> {
     e.preventDefault();
     const delIDVal = document.getElementById("delID").value
@@ -54,25 +52,35 @@ socket.on("mssgAddProd", async mssg => {
         title: `El producto fue agregado correctamente!`,
         showConfirmButton: true,
     })
-    await location.reload()
-    console.log("Added product:" + mssg)
+    
 })
 
 socket.on("mssgDelProd", async mssg => {
-    if (mssg) {
         await Swal.fire({
             icon: 'success',
             title: 'El producto fue eliminado',
             showConfirmButton: true,
         })
-        await location.reload()
-    } else {
-        await Swal.fire({
-            icon: 'error',
-            title: 'No se pudo eliminar el producto',
-            showConfirmButton: true,
-        })
-        await location.reload()
-    }
-    console.log(mssg)
+    
+})
+
+socket.on("getProds", products => {
+    const prodsRender = document.getElementById("prodsRender")
+    prodsRender.innerHTML=""
+    console.log(products)
+    products.forEach(product => {
+        prodsRender.innerHTML += 
+        `
+        <div>
+        <h4>${product.title}</h4>
+        <img src="${product.thumbnail}">
+        <p>ID: ${product.id}</p>
+        <p>Código: ${product.code}</p>
+        <p>${product.description}</p>
+        <p>Categoría: ${product.category}</p>
+        <p>Stock disponible: ${product.stock} unidades</p>
+        <h4>Precio: $ ${product.price}</h4>
+        <div>
+        `
+    })
 })
